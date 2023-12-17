@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.fhsolution.eclipse.feature.csvedit"
+      id="me.glindholm.plugin.csvedit2.feature"
       label="CSV Edit"
-      version="1.2.0"
+      version="2.0.0.qualifier"
       provider-name="www.fhsolution.com"
-      plugin="org.fhsolution.eclipse.plugins.csvedit">
+      plugin="me.glindholm.plugin.csvedit2.plugins.csvedit">
 
    <description url="http://code.google.com/p/csvedit/">
       This aims to create a CSV file editor in Eclipse with features
@@ -51,15 +51,15 @@ permissions and limitations under the License.
    </url>
 
    <plugin
-         id="org.fhsolution.eclipse.plugins.csvedit"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.fhsolution.eclipse.plugins.csvedit.ui"
-         version="0.0.0"/>
-
-   <plugin
          id="wrapped.org.jumpmind.symmetric.symmetric-csv"
+         version="0.0.0"/>
+
+   <plugin
+         id="me.glindholm.plugin.csvedit2"
+         version="0.0.0"/>
+
+   <plugin
+         id="me.glindholm.plugin.csvedit2.ui"
          version="0.0.0"/>
 
 </feature>

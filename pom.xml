@@ -3,9 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.nodeclipse</groupId>
-    <artifactId>csvedit</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <groupId>me.glindholm.plugin</groupId>
+    <artifactId>csvedit2</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>csvedit :: parent</name>
     <description>csvedit parent</description>
@@ -13,14 +13,23 @@
     <properties>
         <java.version>17</java.version>
         <tycho.version>4.0.4</tycho.version>
-        <tycho.test.jvmArgs>-Xmx512m -XX:MaxPermSize=256m</tycho.test.jvmArgs>
+        <tycho.test.jvmArgs>-Xmx512m</tycho.test.jvmArgs>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+       <!-- Deploy to github -->
+        <github-update-repo>
+            git@github.com:gnl42/CsvEdit2-update.git</github-update-repo>
+        <github-local-clone>${project.build.directory}/checkout</github-local-clone>
+        <releases-directory>${github-local-clone}/releases</releases-directory>
+        <current-release-directory>${releases-directory}/${qualifiedVersion}</current-release-directory>
+        <!-- The label for the Composite sites -->
+        <site.label>CsvEdit2-update</site.label>
     </properties>
 
     <scm>
-        <connection>scm:git@github.com:gnl42/CsvEdit.git</connection>
-        <developerConnection>scm:git@github.com:gnl42/CsvEdit.git</developerConnection>
-        <url>https://github.com/gnl42/CsvEdit</url>
+        <connection>scm:git@github.com:gnl42/CsvEdit2.git</connection>
+        <developerConnection>scm:git@github.com:gnl42/CsvEdit2.git</developerConnection>
+        <url>https://github.com/gnl42/CsvEdit2</url>
     </scm>
 
 
@@ -251,15 +260,43 @@
                     </environments>
                     <target>
                         <artifact>
-                            <groupId>org.nodeclipse</groupId>
+                            <groupId>me.glindholm.plugin</groupId>
                             <artifactId>csvedit.target</artifactId>
-                            <version>1.2.0-SNAPSHOT</version>
+                            <version>2.0.0-SNAPSHOT</version>
                         </artifact>
                     </target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <!-- Activate this profile to perform the release to GitHub Pages -->
+            <id>release-composite</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <artifactId>maven-install-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>default-install</id>
+                                    <phase>none</phase>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <artifactId>maven-deploy-plugin</artifactId>
+                            <configuration>
+                                <skip>true</skip>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 
     <modules>
         <module>csvedit.target</module>

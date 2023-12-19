@@ -38,7 +38,7 @@ import me.glindholm.plugin.csvedit2.model.CSVRow;
  * Class providing methods to add a custom tableViewer to a Composite
  *
  * @author msavy
- * 
+ *
  */
 public class DetailedEditor {
 
@@ -64,7 +64,7 @@ public class DetailedEditor {
 
     /**
      * Default constructor, open a new window
-     * 
+     *
      */
     public DetailedEditor(final Display display, final List<String> headerList, final CSVRow row, final String inCellDelimiter, final String regexTableMarker) {
 
@@ -99,7 +99,7 @@ public class DetailedEditor {
         composite.setLayout(new GridLayout(2, false));
 
         generateComponents(composite);
-        new Label(composite, SWT.NONE);
+//        new Label(composite, SWT.NONE);
 
         final Composite compositeBtn = new Composite(composite, SWT.NONE);
         final GridData gd_compositeBtn = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
@@ -149,7 +149,7 @@ public class DetailedEditor {
 
     /**
      * Generates components of the DetailedView depending of their type
-     * 
+     *
      */
     private void generateComponents(final Composite composite) {
 
@@ -174,15 +174,19 @@ public class DetailedEditor {
 
     /**
      * Fills components according to data provided by the field attribute "row"
-     * 
+     *
      */
     private void fillComponents() {
 
         for (int i = 0; i < componentList.size(); i++) {
 
             // Fill text components
+            String text = row.getElementAt(i);
+            if (text == null) {
+                text = "";
+            }
             if (componentList.get(i) instanceof Text) {
-                ((Text) componentList.get(i)).setText(row.getElementAt(i));
+                ((Text) componentList.get(i)).setText(text);
 
                 // Fill table viewer components
             } else if (componentList.get(i) instanceof DetailedAttributeTableViewer) {
@@ -190,7 +194,7 @@ public class DetailedEditor {
                 final List<String> headers = new ArrayList<>();
                 headers.add(headerList.get(i));
 
-                final String column1[] = row.getElementAt(i).split("[^|]\\|[^|]");
+                final String column1[] = text.split("[^|]\\|[^|]");
                 for (int j = 0; j < column1.length; j++) {
                     column1[j] = column1[j].trim();
                 }
@@ -208,13 +212,14 @@ public class DetailedEditor {
 
         for (int i = 0; i < headerList.size() && !headerList.get(i).equals(""); i++) {
 
-            if (componentList.get(i) instanceof Text) {
-                row.setRowEntry(i, ((Text) componentList.get(i)).getText());
+            Object component = componentList.get(i);
+            if (component instanceof Text) {
+                row.setRowEntry(i, ((Text) component).getText());
 
                 // if update source is a table viewer
-            } else if (componentList.get(i) instanceof DetailedAttributeTableViewer) {
+            } else if (component instanceof DetailedAttributeTableViewer) {
 
-                final List<AttributeRow> model = ((DetailedAttributeTableViewer) componentList.get(i)).getModel();
+                final List<AttributeRow> model = ((DetailedAttributeTableViewer) component).getModel();
                 final StringBuilder updatedStr = new StringBuilder();
 
                 for (final AttributeRow atts : model) {

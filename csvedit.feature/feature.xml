@@ -4,7 +4,7 @@
       label="CSV Edit"
       version="2.0.0.qualifier"
       provider-name="www.fhsolution.com"
-      plugin="me.glindholm.plugin.csvedit2.plugins.csvedit">
+      plugin="me.glindholm.plugin.csvedit2">
 
    <description url="http://code.google.com/p/csvedit/">
       This aims to create a CSV file editor in Eclipse with features

@@ -31,6 +31,7 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -96,6 +97,10 @@ public abstract class MultiPageCSVEditor extends MultiPageEditorPart implements 
      */
     private final ICsvFileModelListener csvFileListener = (row, rowIndex) -> tableModified();
 
+    private Label searchLabel;
+
+    private Text searchText;
+
     /**
      * Creates a multi-page editor example.
      */
@@ -156,18 +161,14 @@ public abstract class MultiPageCSVEditor extends MultiPageEditorPart implements 
         final GridLayout layout = new GridLayout(6, false);
         canvas.setLayout(layout);
 
-        // create the header part with the search function and Add/Delete rows
-        final Label searchLabel = new Label(canvas, SWT.NONE);
+        searchLabel = new Label(canvas, SWT.NONE);
         searchLabel.setText("Filter: ");
-        final Text searchText = new Text(canvas, SWT.BORDER | SWT.SEARCH);
+        searchText = new Text(canvas, SWT.BORDER | SWT.SEARCH);
         searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
 
         // Create and configure the buttons
         final Button duplicate = new Button(canvas, SWT.PUSH | SWT.CENTER);
-        duplicate.setText("Duplicate");
-        duplicate.setToolTipText("Duplicate the current row");
-        final GridData buttonDuplicateGridData = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-        buttonDuplicateGridData.widthHint = 80;
+        final GridData buttonDuplicateGridData = createGridDataForButton(parent, duplicate, "Duplicate", "Duplicate the current row");
         duplicate.setLayoutData(buttonDuplicateGridData);
         duplicate.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -181,10 +182,7 @@ public abstract class MultiPageCSVEditor extends MultiPageEditorPart implements 
         });
 
         final Button insert = new Button(canvas, SWT.PUSH | SWT.CENTER);
-        insert.setText("Insert Row");
-        insert.setToolTipText("Insert a new row before the current one");
-        final GridData buttonInsertGridData = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-        buttonInsertGridData.widthHint = 80;
+        final GridData buttonInsertGridData = createGridDataForButton(parent, insert, "Insert Row", "Insert a new row before the current one");
         insert.setLayoutData(buttonInsertGridData);
         insert.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -205,10 +203,7 @@ public abstract class MultiPageCSVEditor extends MultiPageEditorPart implements 
          */
 
         final Button add = new Button(canvas, SWT.PUSH | SWT.CENTER);
-        add.setText("Add Row");
-        add.setToolTipText("Add a new row at the end of the file");
-        final GridData buttonAddGridData = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-        buttonAddGridData.widthHint = 80;
+        final GridData buttonAddGridData = createGridDataForButton(parent, add, "Add Row", "Add a new row at the end of the file");
         add.setLayoutData(buttonAddGridData);
         add.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -219,10 +214,7 @@ public abstract class MultiPageCSVEditor extends MultiPageEditorPart implements 
         });
 
         final Button delete = new Button(canvas, SWT.PUSH | SWT.CENTER);
-        delete.setText("Delete Row");
-        delete.setToolTipText("Delete the current row");
-        final GridData buttonDelGridData = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-        buttonDelGridData.widthHint = 80;
+        final GridData buttonDelGridData = createGridDataForButton(parent, delete, "Delete Row", "Delete the current row");
         delete.setLayoutData(buttonDelGridData);
         delete.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -385,6 +377,18 @@ public abstract class MultiPageCSVEditor extends MultiPageEditorPart implements 
         setPageText(indexTBL, "CSV Table");
     }
 
+    private static GridData createGridDataForButton(final Composite parent, final Button button, String myText, String toolTip) {
+        Text textName = new Text(parent, SWT.BORDER);
+        textName.setText(myText);
+        Point size = textName.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+
+        button.setText(textName.getText());
+        button.setToolTipText(toolTip);
+        final GridData buttonDuplicateGridData = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+        buttonDuplicateGridData.widthHint = size.x;
+        return buttonDuplicateGridData;
+    }
+
     /**
      * Set Name of the file to the tab
      */
@@ -448,7 +452,7 @@ public abstract class MultiPageCSVEditor extends MultiPageEditorPart implements 
             }
         });
 
-        new MenuItem(tableHeaderMenu, SWT.SEPARATOR, 1);
+//        new MenuItem(tableHeaderMenu, SWT.SEPARATOR, 1);
 
         final TableColumn[] columns = tableViewer.getTable().getColumns();
         if (columns.length > 0) { // if table header columns already created
@@ -474,8 +478,8 @@ public abstract class MultiPageCSVEditor extends MultiPageEditorPart implements 
         }
 
         if (model.isFirstLineHeader()) {
-            new MenuItem(tableHeaderMenu, SWT.SEPARATOR);
-
+//            new MenuItem(tableHeaderMenu, SWT.SEPARATOR);
+//
             // create menu item to delete column
             final MenuItem deleteColumnItem = new MenuItem(tableHeaderMenu, SWT.PUSH);
             deleteColumnItem.setText("Delete Column");
@@ -628,6 +632,25 @@ public abstract class MultiPageCSVEditor extends MultiPageEditorPart implements 
     @Override
     public void dispose() {
         ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+        if (tableHeaderMenu != null && !tableHeaderMenu.isDisposed()) {
+            tableHeaderMenu.dispose();
+            tableHeaderMenu = null;
+        }
+        if (editor != null) {
+            editor.dispose();
+            editor = null;
+        }
+
+        if (searchLabel != null && !searchLabel.isDisposed()) {
+            searchLabel.dispose();
+            searchLabel = null;
+        }
+
+        if (searchText != null && !searchText.isDisposed()) {
+            searchText.dispose();
+            searchText = null;
+        }
+
         super.dispose();
     }
 

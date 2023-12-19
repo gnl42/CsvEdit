@@ -110,7 +110,8 @@ public class CSVRow {
      * @param elementString
      */
     public void setRowEntry(final int elementIndex, final String elementString) {
-        if (entries.get(elementIndex).compareTo(elementString) != 0) {
+        String entry = entries.get(elementIndex);
+        if (entry != null && entry.compareTo(elementString) != 0) {
             entries.set(elementIndex, elementString);
             listener.rowChanged(this, elementIndex);
         }

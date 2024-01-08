@@ -24,4 +24,4 @@ Export-Package: me.glindholm.plugin.csvedit2.editors;
    org.eclipse.ui.part",
  me.glindholm.plugin.csvedit2.model;uses:="com.csvreader"
 Import-Package: org.jumpmind.symmetric.csv
-Bundle-Vendor: www.fhsolution.com
+Bundle-Vendor: George Lindholm

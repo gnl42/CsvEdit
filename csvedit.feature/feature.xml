@@ -3,10 +3,10 @@
       id="me.glindholm.plugin.csvedit2.feature"
       label="CSV Edit"
       version="2.0.0.qualifier"
-      provider-name="www.fhsolution.com"
+      provider-name="George Lindholm"
       plugin="me.glindholm.plugin.csvedit2">
 
-   <description url="http://code.google.com/p/csvedit/">
+   <description>
       This aims to create a CSV file editor in Eclipse with features
 such as :
 - view csv file in source editor or table editor
@@ -46,8 +46,7 @@ permissions and limitations under the License.
    </license>
 
    <url>
-      <update label="csvedit update site" url="http://csvedit.googlecode.com/svn/trunk/csvedit.update"/>
-      <discovery label="FHSolution" url="http://www.fhsolution.com"/>
+      <update label="csvedit update site" url="https://gnl42.github.io/CsvEdit2-update/"/>
    </url>
 
    <plugin

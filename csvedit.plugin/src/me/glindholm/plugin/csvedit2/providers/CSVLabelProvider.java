@@ -35,7 +35,7 @@ import me.glindholm.plugin.csvedit2.style.SearchResultStyle;
  *
  */
 public class CSVLabelProvider extends StyledCellLabelProvider {
-//implements ITableLabelProvider
+    //implements ITableLabelProvider
 
     private String searchText;
     private final Color searchColor;
@@ -107,6 +107,7 @@ public class CSVLabelProvider extends StyledCellLabelProvider {
      */
     @Override
     public void dispose() {
+        super.dispose();
     }
 
     /**

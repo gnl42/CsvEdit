@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse CSV Editor
-Bundle-SymbolicName: org.fhsolution.eclipse.plugins.csvedit;singleton:=true
-Bundle-Version: 1.2.0
-Bundle-Activator: org.fhsolution.eclipse.plugins.csvedit.Activator
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: me.glindholm.plugin.csvedit2;singleton:=true
+Bundle-Version: 2.0.0.qualifier
+Bundle-Activator: me.glindholm.plugin.csvedit2.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jface.text,
@@ -12,16 +12,16 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.editors,
  org.eclipse.ui.ide
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .,
- lib/javacsv.jar
-Export-Package: org.fhsolution.eclipse.plugins.csvedit.editors;
+Bundle-ClassPath: .
+Export-Package: me.glindholm.plugin.csvedit2.editors;
   uses:="org.eclipse.jface.action,
    org.eclipse.ui.texteditor,
    org.eclipse.core.runtime,
    org.eclipse.ui,
    org.eclipse.core.resources,
    org.eclipse.jface.viewers,
-   org.fhsolution.eclipse.plugins.csvedit.model,
+   me.glindholm.plugin.csvedit2.plugins.csvedit.model,
    org.eclipse.ui.part",
- org.fhsolution.eclipse.plugins.csvedit.model;uses:="com.csvreader"
-Bundle-Vendor: www.fhsolution.com
+ me.glindholm.plugin.csvedit2.model;uses:="com.csvreader"
+Import-Package: org.jumpmind.symmetric.csv
+Bundle-Vendor: George Lindholm

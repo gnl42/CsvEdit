@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.fhsolution.eclipse.feature.csvedit_1.2.0.qualifier.jar" 
-  					  id="org.fhsolution.eclipse.feature.csvedit" version="1.2.0.qualifier">
-      <category name="tools"/>
+   <feature id="me.glindholm.plugin.csvedit2.feature" version="2.0.0.qualifier">
+      <category name="CSV Editor"/>
    </feature>
-   <category-def name="tools" label="Tools"/>
+   <category-def name="CSV Editor" label="CSV Editor"/>
 </site>

@@ -15,10 +15,16 @@
               <dependency>
                   <groupId>org.jumpmind.symmetric</groupId>
                   <artifactId>symmetric-csv</artifactId>
-                  <version>2.5.13</version>
+                  <version>3.15.11</version>
                   <type>jar</type>
               </dependency>
           </dependencies>
+          <repositories>
+              <repository>
+                  <id>jumpmind</id>
+                  <url>https://maven.jumpmind.com/repo/</url>
+              </repository>
+          </repositories>
       </location>
   </locations>
 </target>

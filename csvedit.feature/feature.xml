@@ -2,7 +2,7 @@
 <feature
       id="me.glindholm.plugin.csvedit2.feature"
       label="CSV Edit"
-      version="2.0.0.qualifier"
+      version="2.1.0.qualifier"
       provider-name="George Lindholm"
       plugin="me.glindholm.plugin.csvedit2">
 

@@ -54,6 +54,11 @@ public class DefaultCSVFile extends AbstractCSVFile {
     }
 
     @Override
+    public char getCustomHeaderDelimiter() {
+        return optionsProvider.getCustomHeaderDelimiter().charAt(0);
+    }
+
+    @Override
     public char getCustomDelimiter() {
         return optionsProvider.getCustomDelimiter().charAt(0);
     }

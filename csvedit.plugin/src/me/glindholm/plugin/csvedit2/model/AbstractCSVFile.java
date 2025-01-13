@@ -19,6 +19,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jumpmind.symmetric.csv.CsvReader;
@@ -63,6 +64,13 @@ public abstract class AbstractCSVFile implements IRowChangesListener {
      * @return true if the search must be case sensitive.
      */
     public abstract boolean getSensitiveSearch();
+
+    /**
+     * Get custom delimiter to use as a separator for the header
+     *
+     * @return the delimiter
+     */
+    public abstract char getCustomHeaderDelimiter();
 
     /**
      * Get custom delimiter to use as a separator
@@ -160,6 +168,9 @@ public abstract class AbstractCSVFile implements IRowChangesListener {
             }
 
             boolean setHeader = false;
+            if (isFirstLineHeader()) {
+                csvReader.setDelimiter(getCustomHeaderDelimiter());
+            }
             while (csvReader.readRecord()) {
                 final String[] rowValues = csvReader.getValues();
                 final CSVRow csvRow = new CSVRow(rowValues, this);
@@ -168,6 +179,7 @@ public abstract class AbstractCSVFile implements IRowChangesListener {
                         setHeader = true;
                         csvRow.setHeader(true);
                         populateHeaders(rowValues);
+                        csvReader.setDelimiter(getCustomDelimiter());
                     }
                 } else {
                     csvRow.setCommentLine(true);
@@ -200,9 +212,7 @@ public abstract class AbstractCSVFile implements IRowChangesListener {
         header.clear();
 
         if (entries != null) {
-            for (final String entry : entries) {
-                header.add(entry);
-            }
+            Collections.addAll(header, entries);
 
             /*
              * for (int i = header.size(); i < nbOfColumns; i++) { header.add(""); }

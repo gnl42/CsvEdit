@@ -29,6 +29,7 @@ public class PreferencesCSVOptionsProvider implements ICsvOptionsProvider {
     private final boolean sensitiveSearch;
     private final boolean useQualifier;
     private final String customDelimiter;
+    private final String customHeaderDelimiter;
     private final String commentChar;
     private final String defaultPage;
     private final String textQualifier;
@@ -38,6 +39,7 @@ public class PreferencesCSVOptionsProvider implements ICsvOptionsProvider {
     public PreferencesCSVOptionsProvider() {
         useFirstLineAsHeader = Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.USE_FIRST_LINE_AS_HEADER);
         customDelimiter = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.CUSTOM_DELIMITER);
+        customHeaderDelimiter = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.CUSTOM_HEADER_DELIMITER);
         sensitiveSearch = Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.CASE_SENSITIVE_SEARCH);
         commentChar = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.COMMENT_CHAR);
         textQualifier = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.TEXT_QUALIFIER);
@@ -62,6 +64,10 @@ public class PreferencesCSVOptionsProvider implements ICsvOptionsProvider {
         return sensitiveSearch;
     }
 
+    @Override
+    public String getCustomHeaderDelimiter() {
+        return customHeaderDelimiter;
+    }
     @Override
     public String getCommentChar() {
         return commentChar;

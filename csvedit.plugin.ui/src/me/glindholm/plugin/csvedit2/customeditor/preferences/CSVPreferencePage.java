@@ -18,6 +18,7 @@ import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.StringFieldEditor;
+import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -63,26 +64,38 @@ public class CSVPreferencePage extends FieldEditorPreferencePage implements IWor
         addField(new ComboFieldEditor(PreferenceConstants.DEFAULT_VIEW_PAGE, "Select the default tab to view csv file:", pagesLabelsAndValues,
                 getFieldEditorParent()));
 
-        addField(new BooleanFieldEditor(PreferenceConstants.USE_FIRST_LINE_AS_HEADER, "&Use the first line of the CSV file as the column headers",
-                getFieldEditorParent()));
-
-        final StringFieldEditor customDelimiterField = new StringFieldEditor(PreferenceConstants.CUSTOM_DELIMITER, "Choose the delimiter to use:", 2,
+        final BooleanFieldEditor firstLineIsHeader = new BooleanFieldEditor(PreferenceConstants.USE_FIRST_LINE_AS_HEADER, "&Use the first line of the CSV file as the column headers",
                 getFieldEditorParent());
-        customDelimiterField.setTextLimit(1);
-        customDelimiterField.setEmptyStringAllowed(false);
-        addField(customDelimiterField);
+        addField(firstLineIsHeader);
+
+        final CustomDelimiterFieldEditor headerDelimiter = new CustomDelimiterFieldEditor(PreferenceConstants.CUSTOM_HEADER_DELIMITER, "Choose the delimiter to use for header:", getFieldEditorParent());
+        addField(headerDelimiter);
+
+        firstLineIsHeader.getDescriptionControl(getFieldEditorParent()).addListener(SWT.Selection, event -> {
+            final boolean enabled = firstLineIsHeader.getBooleanValue();
+            headerDelimiter.setEnabled(enabled, getFieldEditorParent());
+        });
+
+        addField(new CustomDelimiterFieldEditor(PreferenceConstants.CUSTOM_DELIMITER, "Choose the delimiter to use:", getFieldEditorParent()));
+
+        //        final StringFieldEditor customDelimiterField = new StringFieldEditor(PreferenceConstants.CUSTOM_DELIMITER, "Choose the delimiter to use:", 2,
+        //                getFieldEditorParent());
+        //        customDelimiterField.setTextLimit(1);
+        //        customDelimiterField.setEmptyStringAllowed(false);
+        //        addField(customDelimiterField);
 
         final StringFieldEditor textQualifierChar = new StringFieldEditor(PreferenceConstants.TEXT_QUALIFIER,
                 "Define the character used as a text qualifier of the data:", 2, getFieldEditorParent());
-        customDelimiterField.setTextLimit(1);
-        customDelimiterField.setEmptyStringAllowed(false);
+        textQualifierChar.setTextLimit(1);
+        textQualifierChar.setEmptyStringAllowed(false);
         addField(textQualifierChar);
+
         addField(new BooleanFieldEditor(PreferenceConstants.USE_QUALIFIER, "For the text qualifier to be used for all fields", getFieldEditorParent()));
 
         final StringFieldEditor commentChar = new StringFieldEditor(PreferenceConstants.COMMENT_CHAR, "Choose the character to use as a comment:", 2,
                 getFieldEditorParent());
-        customDelimiterField.setTextLimit(1);
-        customDelimiterField.setEmptyStringAllowed(true);
+        commentChar.setTextLimit(1);
+        commentChar.setEmptyStringAllowed(true);
         addField(commentChar);
 
         addField(new BooleanFieldEditor(PreferenceConstants.CASE_SENSITIVE_SEARCH, "&Case sensitive filtering", getFieldEditorParent()));

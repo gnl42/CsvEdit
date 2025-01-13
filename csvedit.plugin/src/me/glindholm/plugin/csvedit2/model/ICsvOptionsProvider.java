@@ -26,6 +26,8 @@ public interface ICsvOptionsProvider {
 
     boolean getSensitiveSearch();
 
+    String getCustomHeaderDelimiter();
+
     String getCustomDelimiter();
 
     String getTextQualifier();

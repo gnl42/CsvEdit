@@ -32,4 +32,5 @@ public class PreferenceConstants {
     public static final String INCELL_DELIMITER = "inCellDelimiter";
     public static final String REGEX_HEADER_TABLE = "regexHeaderTable";
     public static final String DEFAULT_VIEW_PAGE = "defaultPagePreference";
+    public static final String CUSTOM_HEADER_DELIMITER = "headerDelimiterPreference";
 }
